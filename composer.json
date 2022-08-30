@@ -1,0 +1,53 @@
+{
+    "name": "stephancasas/blade-wants-attributes",
+    "description": "Provide all attributes (including irregular patterns) to Laravel Blade class components.",
+    "keywords": [
+        "stephancasas",
+        "blade-wants-attributes",
+        "laravel",
+        "blade",
+        "laravel-blade",
+        "attributes"
+    ],
+    "homepage": "https://github.com/stephancasas/laravel-blade-wants-attributes",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Stephan Casas",
+            "email": "stephancasas@icloud.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0|^9.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.7",
+        "phpunit/phpunit": "^9.0"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "autoload": {
+        "psr-4": {
+            "StephanCasas\\BladeWantsAttributes\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "StephanCasas\\BladeWantsAttributes\\BladeWantsAttributesServiceProvider"
+            ]
+        }
+    }
+}
