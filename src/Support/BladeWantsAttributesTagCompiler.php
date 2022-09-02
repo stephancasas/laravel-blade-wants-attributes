@@ -15,7 +15,7 @@ class BladeWantsAttributesTagCompiler extends ComponentTagCompiler
     // the component and attributes prefix pattern in blade output
     const COMPONENT_PREFIX = "##BEGIN-COMPONENT-CLASS##@component('";
     const ATTRIBUTES_PREFIX = '<?php $component->withAttributes(';
-    
+
     public function compile(string $value)
     {
         $this->shareKey = config('blade-wants-attributes.share_key');
@@ -36,10 +36,10 @@ class BladeWantsAttributesTagCompiler extends ComponentTagCompiler
     protected function findEligibleClasses(string $blade)
     {
         $regex = '(?<=' . preg_quote(self::COMPONENT_PREFIX) . ")[^']+";
-        preg_match("/$regex/s", $blade, $this->eligibleClasses);
+        preg_match_all("/$regex/s", $blade, $this->eligibleClasses);
 
         return $this->eligibleClasses = array_filter(
-            $this->eligibleClasses,
+            $this->eligibleClasses[0],
             fn ($class) => self::componentClassWantsAttributes($class)
         );
     }
@@ -56,8 +56,13 @@ class BladeWantsAttributesTagCompiler extends ComponentTagCompiler
         $regex = preg_quote($this->currentInstanceHeader);
 
         return array_reduce(
-            preg_split("/$regex/s", $blade),
+            preg_split("/$regex/s", $blade, -1, PREG_SPLIT_OFFSET_CAPTURE),
             function ($acc, $componentInstance) {
+                [$componentInstance, $i] = $componentInstance;
+                if (!$i) {
+                    return $componentInstance;
+                }
+
                 $withAttributes = $this->handleComponentInstance(
                     $componentInstance
                 );

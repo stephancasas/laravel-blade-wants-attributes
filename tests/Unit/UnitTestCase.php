@@ -21,6 +21,10 @@ class UnitTestCase extends TestCase
             'wanting-attributes'
         );
         app('blade.compiler')->component(
+            FakeComponent\WantingAttributesDifferentName::class,
+            'wanting-attributes-different-name'
+        );
+        app('blade.compiler')->component(
             FakeComponent\WithoutAttributes::class,
             'without-attributes'
         );
